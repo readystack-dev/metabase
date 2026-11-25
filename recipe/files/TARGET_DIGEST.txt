@@ -1,6 +1,6 @@
-image_manifest_digest=sha256:248871c75ef9c0ca95bcb865113975e3d3e158ec9551db31c89ca05da8d7b078
-config_digest=sha256:44c7765439b921890802e6605cd4cb1d1113319ac1eca8a3c15f5a4a24c4e5a0
-tag=readystack/metabase:v0.65.6.4-CE-ubuntu24.04-r1
+image_manifest_digest=sha256:fade468d1b340f8593079d131c64e2fb3c04faa9762da3e8b59a16138cdebdd4
+config_digest=sha256:f04d90827bb05c3c62bcb100dd30c63dc3e6053bce2e60e6a46dd7ee166798a1
+tag=readystack/metabase:v0.65.7.1-CE-ubuntu24.04-r1
 probe_port=3000
 probe_path=/api/health
 probe_timeout=180
