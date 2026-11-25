@@ -1,0 +1,38 @@
+{
+  "bases": [
+    {
+      "digest": "sha256:51ae87bbb1949c1afdff51f6a3e6c5f283d84a4bd68512c9657fdc6605026a49",
+      "layout": "bases/eclipse-temurin_25-jdk-noble_589ff4cc3f71.oci",
+      "ref": "eclipse-temurin:25-jdk-noble@sha256:589ff4cc3f71aab462e7048a47a0d10edf57fbccde3fceea2281e610bf5880b4"
+    },
+    {
+      "digest": "sha256:334f294a3edd3fc7c2a7b12ed0f4b3f43c2e9bd39de2867996b4ae6a652721bf",
+      "layout": "bases/eclipse-temurin_25-jre-noble_f3dd0838e69b.oci",
+      "ref": "eclipse-temurin:25-jre-noble@sha256:f3dd0838e69b881cc382237d5901e74ae3705b1056ad964b2e0e523b174fef99"
+    }
+  ],
+  "engine": {
+    "archive": "toolchain/buildkit.tar",
+    "image_digest": "sha256:e0e67ea9c4bb07bdef683e29f70f3b623d1eb9c82274a9ec04e6bb0511449fb0",
+    "kind": "buildkit",
+    "tag": "moby/buildkit:v0.31.2"
+  },
+  "inputs": {
+    "context": ".",
+    "dockerfile": "Dockerfile.offline.pinned",
+    "mtime_policy": "clamp",
+    "source_date_epoch": 1795543240,
+    "tree_hash": "sha256:aeca375c1272021d2cecbcaac0315c2718ccaf9c81dce0adb0806d07513a514c"
+  },
+  "probe": {
+    "http_path": "/api/health",
+    "port": 3000,
+    "timeout_s": 180
+  },
+  "schema": "readystack-rebuild-bundle/v0.1",
+  "subject": {
+    "config_digest": "sha256:44c7765439b921890802e6605cd4cb1d1113319ac1eca8a3c15f5a4a24c4e5a0",
+    "image_manifest_digest": "sha256:248871c75ef9c0ca95bcb865113975e3d3e158ec9551db31c89ca05da8d7b078",
+    "name": "docker.io/readystack/metabase:v0.65.6.4-CE-ubuntu24.04-r1"
+  }
+}

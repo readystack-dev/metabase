@@ -1,0 +1,2 @@
+eclipse-temurin:25-jdk-noble@sha256:589ff4cc3f71aab462e7048a47a0d10edf57fbccde3fceea2281e610bf5880b4	bases/eclipse-temurin_25-jdk-noble_589ff4cc3f71.oci
+eclipse-temurin:25-jre-noble@sha256:f3dd0838e69b881cc382237d5901e74ae3705b1056ad964b2e0e523b174fef99	bases/eclipse-temurin_25-jre-noble_f3dd0838e69b.oci

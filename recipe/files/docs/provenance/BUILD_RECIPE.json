@@ -1,0 +1,87 @@
+{
+  "schema": "kitforge.build_recipe.v1",
+  "slug": "metabase",
+  "image": "readystack/metabase:v0.65.6.4-CE-ubuntu24.04-r1",
+  "build_method": "source-rebuild-java",
+  "source": {
+    "repo": "https://github.com/metabase/metabase",
+    "ref": "v0.65.6.4",
+    "builder_image": "eclipse-temurin:25-jdk-noble",
+    "jdk_version": "25",
+    "node_version": "22.23.4",
+    "bun_version": "1.3.14",
+    "clojure_cli_version": "1.12.0.1488",
+    "edition": "oss",
+    "build_packages": [
+      "git",
+      "ca-certificates",
+      "curl",
+      "xz-utils",
+      "python3"
+    ],
+    "offline_augment": {
+      "_note": "NONE. Unlike keycloak (which runs a local `kc.sh build` Quarkus augmentation in the offline stage), metabase's uberjar is fully self-contained -- the offline stage performs ZERO build/augment/codegen. It only assembles the jar onto the JRE base, vendors fonts/curl debs, creates the non-root user + writable dirs, and sets the ENTRYPOINT.",
+      "cmd": null
+    },
+    "build_tool": "clojure",
+    "vendor_dirs": [
+      "/opt/node",
+      "/opt/clojure",
+      "/root/.m2/repository",
+      "/root/.gitlibs"
+    ],
+    "online_vendor_cmds": [
+      "cd /tmp && curl -fsSLO https://nodejs.org/dist/v22.23.4/node-v22.23.4-linux-x64.tar.xz && echo '1805bcd35e6815559bd2eb97db438d3fdb0eb3a5e6a977b7c1badca76337e9ce  node-v22.23.4-linux-x64.tar.xz' | sha256sum -c - && mkdir -p /opt/node && tar -xJf node-v22.23.4-linux-x64.tar.xz -C /opt/node --strip-components=1 --no-same-owner && rm node-v22.23.4-linux-x64.tar.xz && node --version",
+      "npm install -g --ignore-scripts --prefix /opt/node bun@1.3.14 && B=/opt/node/lib/node_modules/bun && cp \"$B/node_modules/@oven/bun-linux-x64-baseline/bin/bun\" \"$B/bin/bun.exe\" && cp \"$B/node_modules/@oven/bun-linux-x64-baseline/bin/bun\" \"$B/bin/bunx.exe\" && cmp \"$B/bin/bun.exe\" \"$B/node_modules/@oven/bun-linux-x64-baseline/bin/bun\" && cmp \"$B/bin/bunx.exe\" \"$B/bin/bun.exe\" && bun --version",
+      "cd /tmp && curl -fsSLO https://github.com/clojure/brew-install/releases/download/1.12.0.1488/clojure-tools-1.12.0.1488.tar.gz && echo 'bc19be0010bef0421c26fd3bec7bc3bca08c192828d59a151845422dc4420742  clojure-tools-1.12.0.1488.tar.gz' | sha256sum -c - && tar -xzf clojure-tools-1.12.0.1488.tar.gz && mkdir -p /opt/clojure/bin /opt/clojure/lib/clojure/libexec && install -m644 clojure-tools/deps.edn clojure-tools/example-deps.edn clojure-tools/tools.edn /opt/clojure/lib/clojure/ && install -m644 clojure-tools/exec.jar clojure-tools/clojure-tools-1.12.0.1488.jar /opt/clojure/lib/clojure/libexec/ && sed -i -e 's@PREFIX@/opt/clojure/lib/clojure@g' clojure-tools/clojure && sed -i -e 's@BINDIR@/opt/clojure/bin@g' clojure-tools/clj && install -m755 clojure-tools/clojure clojure-tools/clj /opt/clojure/bin/ && rm -rf clojure-tools clojure-tools-1.12.0.1488.tar.gz && clojure --version",
+      "cd /tmp && curl -fsSLO https://github.com/astral-sh/uv/releases/download/0.10.2/uv-x86_64-unknown-linux-gnu.tar.gz && echo '6aa4576c31f791c0b9d4739e256d07358d45e7535695287fec03cf6839e25512  uv-x86_64-unknown-linux-gnu.tar.gz' | sha256sum -c - && mkdir -p /root/.local/bin && tar -xzf uv-x86_64-unknown-linux-gnu.tar.gz -C /root/.local/bin --strip-components=1 && rm uv-x86_64-unknown-linux-gnu.tar.gz && uv --version",
+      "bun install --frozen-lockfile",
+      "CI=true bin/build.sh :edition :oss :version '\"@VERSION@\"'",
+      "git clean -ffdx -e node_modules -e resources/version.properties -e resources/python-sources",
+      "test -f resources/version.properties && cat resources/version.properties && ls resources/python-sources | grep -qi sqlglot && test ! -e target/uberjar"
+    ],
+    "offline_build_cmds": [
+      "CI=true bin/build.sh :edition :oss :version '\"@VERSION@\"' :steps '[:translations :frontend :licenses :uberjar]'",
+      "mkdir -p /app && cp target/uberjar/metabase.jar /app/metabase.jar && ls -l /app/metabase.jar"
+    ],
+    "offline_env": {
+      "PATH": "/opt/node/bin:/opt/clojure/bin:/root/.local/bin:$PATH",
+      "MB_EDITION": "oss",
+      "INTERACTIVE": "false",
+      "HUSKY": "0",
+      "CYPRESS_INSTALL_BINARY": "0"
+    },
+    "install": {
+      "output_glob": "/src/target/uberjar/metabase.jar",
+      "extract_to": "/app"
+    },
+    "source_date_epoch": 1795543240,
+    "source_date_epoch_provenance": "the time release v0.65.6.4-CE-ubuntu24.04-r1 was cut (2026-11-24T18:00:40Z), by scripts/retarget.py: ReadyStack dates an image by when its release was packaged (owner 2026-11-10), recorded here once and used by every rebuild of the release; it builds upstream commit eae4af03094e, dated 2026-11-23T20:45:44Z (source.commit_epoch).",
+    "commit": "eae4af03094e1f8ad7b7ecfcba73189c5014013c",
+    "uv_version": "0.10.2",
+    "ee_strip": [
+      "enterprise",
+      "LICENSE-MCL.txt"
+    ],
+    "_ee_strip_licence": "Metabase Commercial License (LICENSE-MCL.txt, which governs the top-level enterprise/ directory)",
+    "_build_packages_note": "git: the :version step (online) and tools.gitlibs resolving the four git deps from ~/.gitlibs (offline); xz-utils for the Node tarball; python3 for the renderer's kitforge-cljdeps.py (deps.edn floors, jar verify + normalise) and uv's interpreter.",
+    "source_prep": [
+      "rm -rf enterprise LICENSE-MCL.txt"
+    ],
+    "_offline_env_note": "Applied in BOTH the vendor and the offline stage. CI is deliberately NOT here: upstream's postinstall runs patch-package only when CI is unset, so CI=true goes on the build commands alone. The :frontend step passes only PATH and HOME to bun, so the toolchain must be on PATH and the caches under /root.",
+    "_online_vendor_cmds_note": "The full online build is the cache warm-up: it is the only way to know ~/.m2 and ~/.gitlibs hold everything the offline replay resolves (the :drivers alias pulls every driver module's own deps.edn; the :cljs alias feeds shadow-cljs; the :build alias tools.build). Its outputs are then removed so the shipped jar is the one built offline.",
+    "_bun_baseline_note": "bun's npm postinstall (install.js isLinuxAVX2: /proc/cpuinfo contains avx2) copies the AVX2 build into bin/bun.exe when the VENDOR host has AVX2, so the kit's toolchain then dies with SIGILL on any x86-64 CPU without it. Chain 543's v0.64.3 kit was vendored on an AVX2 host; the held check's clean room (<redacted: internal host>, Xeon E5-4650, no AVX2) failed at bin/build.sh with :exit 132 (2026-10-21), and that archive's bun.exe printed 'Illegal instruction' there while the baseline binary beside it ran. The baseline build (same version, installed by npm as an optional dependency) is put in place of bun.exe and bunx.exe so the sale archive rebuilds on every linux/amd64 host whatever CPU vendored it.",
+    "_online_vendor_cmds_bun_note": "bun is installed with --ignore-scripts (2026-11-08): bun's own postinstall picks a binary for the BUILD HOST's CPU and rearranges node_modules/@oven, so the copy of the baseline binary below depended on the host; chain 870 (security revision r2) stopped on <redacted: internal host> (no AVX2) with '@oven/bun-linux-x64-baseline/bin/bun: No such file'. With --ignore-scripts npm installs every @oven package and runs no postinstall; the baseline binary is copied and compared as before (checked on node 22.23.4 / npm 10.9.9: bun --version 1.3.14).",
+    "commit_epoch": 1795466744,
+    "source_date_epoch_basis": "release-cut"
+  },
+  "binaries_from_source": null,
+  "runtime_packages": [
+    "ca-certificates",
+    "curl",
+    "fontconfig",
+    "fonts-noto-core",
+    "fonts-noto-cjk",
+    "tzdata"
+  ]
+}

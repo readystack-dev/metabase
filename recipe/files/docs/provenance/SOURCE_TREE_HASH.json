@@ -1,0 +1,9 @@
+{
+  "schema": "kitforge.source_tree_hash.v1",
+  "slug": "metabase",
+  "repo": "https://github.com/metabase/metabase",
+  "ref": "v0.65.6.4",
+  "commit": "eae4af03094e1f8ad7b7ecfcba73189c5014013c",
+  "tree_listing_sha256": "f43c30923b064edb62497bf7428b9cad48a46f4f7c0754bbdcc5210f8034a529",
+  "file_count": 20069
+}

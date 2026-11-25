@@ -1,0 +1,6 @@
+ca-certificates
+curl
+fontconfig
+fonts-noto-core
+fonts-noto-cjk
+tzdata

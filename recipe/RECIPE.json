@@ -1,0 +1,306 @@
+{
+ "schema": "readystack.recipe.v1",
+ "slug": "metabase",
+ "tag": "v0.65.6.4-CE-ubuntu24.04-r1",
+ "tarball": "ReadyStack-metabase-v0.65.6.4-CE-ubuntu24.04-r1.tar.gz",
+ "tarball_sha256": "e2fef404155e51d936e7c3dafb3a5cbc6f2a5fc1b5eee0120fc206d3cf862a68",
+ "kit_root": "v0.65.6.4-CE-ubuntu24.04-r1",
+ "generated_at": "2026-11-24T22:30:42Z",
+ "generator": "KitForge release/recipe_publish.py",
+ "dockerfile": "Dockerfile.offline.pinned",
+ "build_script": "BUILD_OFFLINE.sh",
+ "preview_lines": 24,
+ "pins": {
+  "upstream": {
+   "repo": "https://github.com/metabase/metabase",
+   "ref": "v0.65.6.4",
+   "commit": "eae4af03094e1f8ad7b7ecfcba73189c5014013c",
+   "url": "https://github.com/metabase/metabase/tree/eae4af03094e1f8ad7b7ecfcba73189c5014013c",
+   "from": "docs/provenance/BUILD_RECIPE.json"
+  },
+  "fetches": [
+   {
+    "kind": "git",
+    "url": "https://github.com/metabase/metabase",
+    "ref": "v0.65.6.4"
+   },
+   {
+    "kind": "http",
+    "url": "https://nodejs.org/dist/v22.23.4/node-v22.23.4-linux-x64.tar.xz"
+   },
+   {
+    "kind": "http",
+    "url": "https://github.com/clojure/brew-install/releases/download/1.12.0.1488/clojure-tools-1.12.0.1488.tar.gz"
+   },
+   {
+    "kind": "http",
+    "url": "https://github.com/astral-sh/uv/releases/download/0.10.2/uv-x86_64-unknown-linux-gnu.tar.gz"
+   }
+  ],
+  "bases": [
+   {
+    "ref": "eclipse-temurin:25-jdk-noble@sha256:589ff4cc3f71aab462e7048a47a0d10edf57fbccde3fceea2281e610bf5880b4",
+    "image": "eclipse-temurin:25-jdk-noble",
+    "digest": "sha256:589ff4cc3f71aab462e7048a47a0d10edf57fbccde3fceea2281e610bf5880b4"
+   },
+   {
+    "ref": "eclipse-temurin:25-jre-noble@sha256:f3dd0838e69b881cc382237d5901e74ae3705b1056ad964b2e0e523b174fef99",
+    "image": "eclipse-temurin:25-jre-noble",
+    "digest": "sha256:f3dd0838e69b881cc382237d5901e74ae3705b1056ad964b2e0e523b174fef99"
+   }
+  ],
+  "toolchain": {
+   "buildkit": "moby/buildkit:v0.31.2",
+   "buildkit_image_digest": "sha256:e0e67ea9c4bb07bdef683e29f70f3b623d1eb9c82274a9ec04e6bb0511449fb0",
+   "builder_images": [
+    "eclipse-temurin:25-jdk-noble@sha256:589ff4cc3f71aab462e7048a47a0d10edf57fbccde3fceea2281e610bf5880b4"
+   ]
+  },
+  "build_method": "source-rebuild-java",
+  "source_date_epoch": 1795543240,
+  "source_date_epoch_utc": "2026-11-24T18:00:40Z",
+  "target": {
+   "image_manifest_digest": "sha256:248871c75ef9c0ca95bcb865113975e3d3e158ec9551db31c89ca05da8d7b078",
+   "config_digest": "sha256:44c7765439b921890802e6605cd4cb1d1113319ac1eca8a3c15f5a4a24c4e5a0",
+   "image": "readystack/metabase:v0.65.6.4-CE-ubuntu24.04-r1"
+  },
+  "checksummed_files": 170841
+ },
+ "files": [
+  {
+   "path": "BASES.tsv",
+   "size": 306,
+   "sha256": "9a357a6dcf95918c515c533b078841fe96f049d8a09fe2725c5683aaaab40f2e",
+   "lines": 2,
+   "public": "full"
+  },
+  {
+   "path": "BUILD_OFFLINE.sh",
+   "size": 8856,
+   "sha256": "6ab4f08a6ec775b32d854f03413b30ecfe555ddba78cf0de956235f5a2a39542",
+   "lines": 162,
+   "public": "preview",
+   "preview_lines": 24
+  },
+  {
+   "path": "CHECKSUMS.sha256",
+   "size": 30455372,
+   "sha256": "06125bd611e85767c1b9448b735891431246dfc8434b1f8c13bcb6d06f3ab884",
+   "lines": 170841,
+   "public": "account",
+   "stored": "gzip"
+  },
+  {
+   "path": "DOCKERFILE_NAME.txt",
+   "size": 26,
+   "sha256": "9aadd1ede68e016a6f163c97befc5ff2fcdc8ebd4f84b108dba63cb195fa8c84",
+   "lines": 1,
+   "public": "full"
+  },
+  {
+   "path": "Dockerfile",
+   "size": 5785,
+   "sha256": "47eda8f703639173ace812fe118a1cef69f65679b313ad52fb43f7bae9fe826f",
+   "lines": 62,
+   "public": "account"
+  },
+  {
+   "path": "Dockerfile.offline",
+   "size": 5785,
+   "sha256": "47eda8f703639173ace812fe118a1cef69f65679b313ad52fb43f7bae9fe826f",
+   "lines": 62,
+   "public": "account"
+  },
+  {
+   "path": "Dockerfile.offline.pinned",
+   "size": 5785,
+   "sha256": "47eda8f703639173ace812fe118a1cef69f65679b313ad52fb43f7bae9fe826f",
+   "lines": 62,
+   "public": "preview",
+   "preview_lines": 24
+  },
+  {
+   "path": "Dockerfile.vendor",
+   "size": 4720,
+   "sha256": "785771b56ec41f17d1b2969117573c3afce1004a255c88016f0dddaa7981d784",
+   "lines": 42,
+   "public": "account"
+  },
+  {
+   "path": "FILE_MODES.tsv",
+   "size": 23059496,
+   "sha256": "09d08bf8b3a16132ffedbf7a274c00d6d43fc4faf2b3ff4874f4953eee68500e",
+   "lines": 208662,
+   "public": "account",
+   "stored": "gzip"
+  },
+  {
+   "path": "MANIFEST.txt",
+   "size": 18838214,
+   "sha256": "50ca542f7b6ca9100411ec360963c7a701b5bf3d2b7cf88f24cb66a2ed1e3c9b",
+   "lines": 170843,
+   "public": "account",
+   "stored": "gzip"
+  },
+  {
+   "path": "README.md",
+   "size": 3321,
+   "sha256": "874a8a21704b7293aac429fb6ac0425d6c6f64ffbcc1d1b53dc7e0129e1335eb",
+   "lines": 39,
+   "public": "account"
+  },
+  {
+   "path": "SOURCE_DATE_EPOCH.txt",
+   "size": 11,
+   "sha256": "be89802f6174d8e16910145ff065acea61d829a5c6c7d8b2a63c7b8c0a7b3de1",
+   "lines": 1,
+   "public": "full"
+  },
+  {
+   "path": "TARGET_DIGEST.txt",
+   "size": 289,
+   "sha256": "98bddbee7f922d4c3dfb8825895bfc4907eed697979f214329c2fa0b24917092",
+   "lines": 6,
+   "public": "full"
+  },
+  {
+   "path": "VERIFY_OFFLINE.sh",
+   "size": 10153,
+   "sha256": "3e8184ea230cfd8f41f977e26be6bf7bd03112c396c517837ce0c7de4f7399dd",
+   "lines": 165,
+   "public": "account"
+  },
+  {
+   "path": "docs/PROVENANCE.md",
+   "size": 2628,
+   "sha256": "bd1c0dc93c589be43f518a09fe0a818e2c7d38f258aee6e9205db9dd7d7ad59d",
+   "lines": 36,
+   "public": "account"
+  },
+  {
+   "path": "docs/REBUILD.md",
+   "size": 6140,
+   "sha256": "3c4c56263de3ac8e068878a132f5d0b18fe9a4c6c35b20c09a3f6312fd179c48",
+   "lines": 60,
+   "public": "account"
+  },
+  {
+   "path": "docs/VERIFY.md",
+   "size": 2049,
+   "sha256": "fb2ab46378c5d1ea0e60329fd78bd543548508db2aca08be0fc2d69350e3346b",
+   "lines": 34,
+   "public": "account"
+  },
+  {
+   "path": "docs/provenance/BASE_IMAGE_DIGESTS.lock",
+   "size": 79,
+   "sha256": "a2deeab8bd028c8101f8b32b7b43dcf880bf06243ecbe4e1afb841e1da3c19c1",
+   "lines": 2,
+   "public": "full"
+  },
+  {
+   "path": "docs/provenance/BUILD_RECIPE.json",
+   "size": 7561,
+   "sha256": "10bc25820afbe671ce072feb8fac53477a410624603bf632778909f85bd4c76e",
+   "lines": 87,
+   "redactions": [
+    {
+     "line": 73,
+     "kind": "internal host"
+    },
+    {
+     "line": 74,
+     "kind": "internal host"
+    }
+   ],
+   "kit_sha256": "5edfe6f25e52b3a651aa8a29ece7b50975d5d9cf579373b17cd1390065919d44",
+   "kit_size": 7521,
+   "public": "account"
+  },
+  {
+   "path": "docs/provenance/CUSTODY_INPUTS.json",
+   "size": 702,
+   "sha256": "4ec6e798dc607d9edbbaad1f8b9247f4e1e8e8cd4d9edd5b066744223f4aaebc",
+   "lines": 20,
+   "public": "account"
+  },
+  {
+   "path": "docs/provenance/SOURCE_FILE_MANIFEST.json",
+   "size": 335747,
+   "sha256": "692a891e2813ef974bd91882c31598abb8300b5af7d65df67279aaa87ee1fbec",
+   "lines": 5007,
+   "public": "account",
+   "stored": "gzip"
+  },
+  {
+   "path": "docs/provenance/SOURCE_TREE_HASH.json",
+   "size": 312,
+   "sha256": "44ec6092d135b906d7751ad006993b059b93b1a2942c00c3753c22a3f8e90249",
+   "lines": 9,
+   "public": "full"
+  },
+  {
+   "path": "docs/provenance/SYSTEM_PINNING.lock",
+   "size": 70,
+   "sha256": "6b61cd5b39e984c6ecdd7be0bf82f66c951017c1e382a38b3463fa8a1db54392",
+   "lines": 6,
+   "public": "account"
+  },
+  {
+   "path": "docs/provenance/TOOLCHAIN.lock",
+   "size": 5893,
+   "sha256": "31830a459ec1332d65be2efa2e7e57a7aae3055a0d42776f928898fe0f4f1a6b",
+   "lines": 117,
+   "public": "account"
+  },
+  {
+   "path": "kitforge-cljdeps.py",
+   "size": 39954,
+   "sha256": "ecb6e918a81e489f5a5d7e1922ba5129457a4cfcaadced2f40c387d1dff43fea",
+   "lines": 806,
+   "redactions": [
+    {
+     "line": 57,
+     "kind": "internal host"
+    }
+   ],
+   "kit_sha256": "cadd68dc87061a6c3fd215cde6b4bf7952f0fb1a46753eee926be3165834f892",
+   "kit_size": 39914,
+   "public": "account"
+  },
+  {
+   "path": "rebuild.json",
+   "size": 1486,
+   "sha256": "496e108a756c467dba22be6e78e1475a6771a904b5920fa5f59b05426c6be1e8",
+   "lines": 38,
+   "public": "account"
+  },
+  {
+   "path": "toolchain/BUILDKIT_TAG.txt",
+   "size": 22,
+   "sha256": "fcd530eeb02b063d2f047adad6eef896422a8e8d558513e5f09b2a262be32573",
+   "lines": 1,
+   "public": "full"
+  }
+ ],
+ "skipped": [],
+ "kit_adds": {
+  "bases": {
+   "files": 18,
+   "bytes": 252838949
+  },
+  "docs": {
+   "files": 20130,
+   "bytes": 415110814
+  },
+  "toolchain": {
+   "files": 1,
+   "bytes": 111529472
+  },
+  "vendored": {
+   "files": 150207,
+   "bytes": 3211793898
+  }
+ },
+ "redacted_files": 2
+}
