@@ -1,11 +1,11 @@
 {
   "schema": "kitforge.build_recipe.v1",
   "slug": "metabase",
-  "image": "readystack/metabase:v0.65.7.1-CE-ubuntu24.04-r1",
+  "image": "readystack/metabase:v0.65.7.4-CE-ubuntu24.04-r1",
   "build_method": "source-rebuild-java",
   "source": {
     "repo": "https://github.com/metabase/metabase",
-    "ref": "v0.65.7.1",
+    "ref": "v0.65.7.4",
     "builder_image": "eclipse-temurin:25-jdk-noble",
     "jdk_version": "25",
     "node_version": "22.23.4",
@@ -55,9 +55,9 @@
       "output_glob": "/src/target/uberjar/metabase.jar",
       "extract_to": "/app"
     },
-    "source_date_epoch": 1795590400,
-    "source_date_epoch_provenance": "the time release v0.65.7.1-CE-ubuntu24.04-r1 was cut (2026-11-25T07:06:40Z), by scripts/retarget.py: ReadyStack dates an image by when its release was packaged (owner 2026-11-10), recorded here once and used by every rebuild of the release; it builds upstream commit b63429151e6b, dated 2026-11-24T18:46:41Z (source.commit_epoch).",
-    "commit": "b63429151e6bc66420dfdb6e3c5ceb973ca8a467",
+    "source_date_epoch": 1795849182,
+    "source_date_epoch_provenance": "the time release v0.65.7.4-CE-ubuntu24.04-r1 was cut (2026-11-28T06:59:42Z), by scripts/retarget.py: ReadyStack dates an image by when its release was packaged (owner 2026-11-10), recorded here once and used by every rebuild of the release; it builds upstream commit 615478ea918f, dated 2026-11-27T11:29:01Z (source.commit_epoch).",
+    "commit": "615478ea918fa1488412a846f0380609d7f3d54b",
     "uv_version": "0.10.2",
     "ee_strip": [
       "enterprise",
@@ -72,7 +72,7 @@
     "_online_vendor_cmds_note": "The full online build is the cache warm-up: it is the only way to know ~/.m2 and ~/.gitlibs hold everything the offline replay resolves (the :drivers alias pulls every driver module's own deps.edn; the :cljs alias feeds shadow-cljs; the :build alias tools.build). Its outputs are then removed so the shipped jar is the one built offline.",
     "_bun_baseline_note": "bun's npm postinstall (install.js isLinuxAVX2: /proc/cpuinfo contains avx2) copies the AVX2 build into bin/bun.exe when the VENDOR host has AVX2, so the kit's toolchain then dies with SIGILL on any x86-64 CPU without it. Chain 543's v0.64.3 kit was vendored on an AVX2 host; the held check's clean room (<redacted: internal host>, Xeon E5-4650, no AVX2) failed at bin/build.sh with :exit 132 (2026-10-21), and that archive's bun.exe printed 'Illegal instruction' there while the baseline binary beside it ran. The baseline build (same version, installed by npm as an optional dependency) is put in place of bun.exe and bunx.exe so the sale archive rebuilds on every linux/amd64 host whatever CPU vendored it.",
     "_online_vendor_cmds_bun_note": "bun is installed with --ignore-scripts (2026-11-08): bun's own postinstall picks a binary for the BUILD HOST's CPU and rearranges node_modules/@oven, so the copy of the baseline binary below depended on the host; chain 870 (security revision r2) stopped on <redacted: internal host> (no AVX2) with '@oven/bun-linux-x64-baseline/bin/bun: No such file'. With --ignore-scripts npm installs every @oven package and runs no postinstall; the baseline binary is copied and compared as before (checked on node 22.23.4 / npm 10.9.9: bun --version 1.3.14).",
-    "commit_epoch": 1795546001,
+    "commit_epoch": 1795778941,
     "source_date_epoch_basis": "release-cut"
   },
   "binaries_from_source": null,

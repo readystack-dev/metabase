@@ -1,14 +1,16 @@
-# Build kit for `readystack/metabase:v0.65.7.1-CE-ubuntu24.04-r1`
+# Build kit for `readystack/metabase:v0.65.7.4-CE-ubuntu24.04-r1`
 
-This archive rebuilds the linux/amd64 image `readystack/metabase:v0.65.7.1-CE-ubuntu24.04-r1` from its own contents, with the network off, and checks the result against the image digest ReadyStack published, `sha256:fade468d1b340f8593079d131c64e2fb3c04faa9762da3e8b59a16138cdebdd4` (also in `TARGET_DIGEST.txt`). It holds everything the build needs, not the image itself.
+This archive rebuilds the linux/amd64 image `readystack/metabase:v0.65.7.4-CE-ubuntu24.04-r1` from its own contents, with the network off, and checks the result against the image digest ReadyStack published, `sha256:547ba779f4e5cefb18a04ba9d880b45fd6f2a08d97ced2410a0e4be282ac9cf3` (also in `TARGET_DIGEST.txt`). It holds everything the build needs, not the image itself.
+
+Every release of this kit, its recipe and its defect issues are published at https://github.com/readystack-dev/metabase; the product page is https://readystack.dev/products/metabase.
 
 ## Rebuild it
 
 You need linux/amd64 Docker with `buildx` 0.30 or later, `jq` and `tar` (docs/REBUILD.md lists the rest, if any, and the hardware ReadyStack used).
 
 ```
-tar -xpzf ReadyStack-metabase-v0.65.7.1-CE-ubuntu24.04-r1.tar.gz    # -p keeps each file's mode
-cd v0.65.7.1-CE-ubuntu24.04-r1
+tar -xpzf ReadyStack-metabase-v0.65.7.4-CE-ubuntu24.04-r1.tar.gz    # -p keeps each file's mode
+cd v0.65.7.4-CE-ubuntu24.04-r1
 ./BUILD_OFFLINE.sh            # builds with the network off, from this archive alone
 ./VERIFY_OFFLINE.sh           # compares the rebuilt digest with the published one, then checks the image
 ```
@@ -23,8 +25,8 @@ ReadyStack signs this archive's `rebuild.json` with its release key once the fin
 
 ```
 curl -fsSLo ../cosign.pub https://readystack.dev/keys/cosign.pub
-curl -fsSLo ../ReadyStack-metabase-v0.65.7.1-CE-ubuntu24.04-r1.rebuild.json.sigstore https://readystack.dev/api/kit/metabase/v0.65.7.1-CE-ubuntu24.04-r1/files/ReadyStack-metabase-v0.65.7.1-CE-ubuntu24.04-r1.rebuild.json.sigstore
-python3 docs/rebuild-bundle/rebuild_bundle.py validate . --key ../cosign.pub --signature ../ReadyStack-metabase-v0.65.7.1-CE-ubuntu24.04-r1.rebuild.json.sigstore
+curl -fsSLo ../ReadyStack-metabase-v0.65.7.4-CE-ubuntu24.04-r1.rebuild.json.sigstore https://readystack.dev/api/kit/metabase/v0.65.7.4-CE-ubuntu24.04-r1/files/ReadyStack-metabase-v0.65.7.4-CE-ubuntu24.04-r1.rebuild.json.sigstore
+python3 docs/rebuild-bundle/rebuild_bundle.py validate . --key ../cosign.pub --signature ../ReadyStack-metabase-v0.65.7.4-CE-ubuntu24.04-r1.rebuild.json.sigstore
 ```
 
 `validate` needs Python 3 and cosign. Without building anything it checks the signature over `rebuild.json`, every file's checksum, the tree hash over every file's path, mode and content, each base image layout's digest and the builder archive. `verify`, with the same arguments, also rebuilds with the builder's network egress blocked and exits 0 only when the rebuilt digest is the published one (docs/REBUILD.md).

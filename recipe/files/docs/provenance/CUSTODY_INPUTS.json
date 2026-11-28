@@ -2,8 +2,8 @@
   "schema": "kitforge.custody_inputs.v1",
   "slug": "metabase",
   "repo": "https://github.com/metabase/metabase",
-  "ref": "v0.65.7.1",
-  "commit": "b63429151e6bc66420dfdb6e3c5ceb973ca8a467",
+  "ref": "v0.65.7.4",
+  "commit": "615478ea918fa1488412a846f0380609d7f3d54b",
   "edition": "CE",
   "ce_audit": {
     "ce_only": true,

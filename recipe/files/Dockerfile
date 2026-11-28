@@ -23,9 +23,9 @@ COPY kitforge-cljdeps.py /kitforge-cljdeps.py
 RUN python3 /kitforge-cljdeps.py hashagent /kitforge-namehash.jar
 RUN python3 /kitforge-cljdeps.py shadowdet shadow-cljs.edn /kitforge-namehash.jar
 ENV JAVA_TOOL_OPTIONS="-XX:+UnlockExperimentalVMOptions -XX:hashCode=2 -javaagent:/kitforge-namehash.jar=reflect:clojure/,dirsort"
-RUN CI=true bin/build.sh :edition :oss :version '"v0.65.7.1"' :steps '[:translations :frontend :licenses :uberjar]'
+RUN CI=true bin/build.sh :edition :oss :version '"v0.65.7.4"' :steps '[:translations :frontend :licenses :uberjar]'
 RUN mkdir -p /app && cp target/uberjar/metabase.jar /app/metabase.jar && ls -l /app/metabase.jar
-ARG SOURCE_DATE_EPOCH=1795590400
+ARG SOURCE_DATE_EPOCH=1795849182
 RUN python3 /kitforge-cljdeps.py normalize /app "$SOURCE_DATE_EPOCH"
 RUN rm -f /kitforge-cljdeps.py /kitforge-namehash.jar
 FROM eclipse-temurin:25-jre-noble@sha256:f3dd0838e69b881cc382237d5901e74ae3705b1056ad964b2e0e523b174fef99
@@ -38,7 +38,7 @@ RUN --mount=type=bind,source=vendored/debs,target=/tmp/debs \
     { [ -z "$bad" ] || { echo "vendored debs not installed at their vendored version:$bad" >&2; false; }; } && \
     rm -rf /var/lib/apt/lists/* \
            /var/log/dpkg.log /var/log/alternatives.log /var/log/apt /var/cache/ldconfig/aux-cache /var/cache/fontconfig
-ARG SOURCE_DATE_EPOCH=1795590400
+ARG SOURCE_DATE_EPOCH=1795849182
 RUN groupadd -r metabase && useradd -r -g metabase -d /app -m metabase && \
     : "${SOURCE_DATE_EPOCH:?SOURCE_DATE_EPOCH must be set for a reproducible build}" && \
     sed -ri "s/^([^:]*:[^:]*):[0-9]*:/\1:$((SOURCE_DATE_EPOCH/86400)):/" /etc/shadow && \
@@ -47,13 +47,18 @@ COPY --from=jbuild /app /app
 RUN mkdir -p /metabase-data /app/target /plugins && chown -R metabase:metabase /metabase-data /app/target /plugins
 LABEL org.opencontainers.image.licenses="AGPL-3.0"
 LABEL org.opencontainers.image.title="Metabase"
-LABEL org.opencontainers.image.source="https://github.com/metabase/metabase"
-LABEL org.opencontainers.image.url="https://www.metabase.com/"
-LABEL org.opencontainers.image.version="v0.65.7.1-CE-ubuntu24.04-r1"
+LABEL org.opencontainers.image.source="https://github.com/readystack-dev/metabase"
+LABEL org.opencontainers.image.url="https://readystack.dev/products/metabase"
+LABEL org.opencontainers.image.version="v0.65.7.4-CE-ubuntu24.04-r1"
 LABEL org.opencontainers.image.description="Metabase Community Edition — open-source business intelligence and analytics (dashboards, questions, SQL) on a self-contained JVM uberjar"
-LABEL org.opencontainers.image.vendor="Metabase"
-LABEL com.readystack.license.disclosure="This image includes Metabase (https://github.com/metabase/metabase), Community/OSS edition, licensed under AGPL-3.0 (all source outside the upstream top-level enterprise/ directory). The proprietary enterprise/ subtree (Metabase Commercial License) is EXCLUDED from this build (MB_EDITION=oss; the :ee classpath is never used; enterprise/ and LICENSE-MCL.txt are removed). Modifications: shadow-cljs.edn compiles the ClojureScript frontend serially (:parallel-build false) and loads ReadyStack's build-time JSChunk name-hash agent through :jvm-opts, so the frontend bundle reproduces; deps.edn is not changed; full diff at https://readystack.dev/source/metabase/v0.65.7.1/metabase-v0.65.7.1-readystack.patch. Other security patches are applied only via vendored updates to upstream-published Clojure/Maven and apt dependencies (unmodified). ReadyStack license holders have access to the image build recipe and patched-package manifest on request via contact@readystack.dev."
-LABEL org.opencontainers.image.revision="b63429151e6bc66420dfdb6e3c5ceb973ca8a467"
+LABEL org.opencontainers.image.vendor="ReadyStack.dev"
+LABEL com.readystack.license.disclosure="This image includes Metabase (https://github.com/metabase/metabase), Community/OSS edition, licensed under AGPL-3.0 (all source outside the upstream top-level enterprise/ directory). The proprietary enterprise/ subtree (Metabase Commercial License) is EXCLUDED from this build (MB_EDITION=oss; the :ee classpath is never used; enterprise/ and LICENSE-MCL.txt are removed). Modifications: shadow-cljs.edn compiles the ClojureScript frontend serially (:parallel-build false) and loads ReadyStack's build-time JSChunk name-hash agent through :jvm-opts, so the frontend bundle reproduces; deps.edn is not changed; full diff at https://readystack.dev/source/metabase/v0.65.7.4/metabase-v0.65.7.4-readystack.patch. Other security patches are applied only via vendored updates to upstream-published Clojure/Maven and apt dependencies (unmodified). ReadyStack license holders have access to the image build recipe and patched-package manifest on request via contact@readystack.dev."
+LABEL org.opencontainers.image.revision="615478ea918fa1488412a846f0380609d7f3d54b"
+LABEL readystack.upstream.source="https://github.com/metabase/metabase"
+LABEL readystack.upstream.url="https://www.metabase.com/"
+LABEL org.opencontainers.image.documentation="https://github.com/readystack-dev/metabase#readme"
+LABEL org.opencontainers.image.authors="ReadyStack <contact@readystack.dev>"
+LABEL readystack.upstream.vendor="Metabase"
 HEALTHCHECK --interval=5s --timeout=120s --start-period=90s \
   CMD curl -fsS -o /dev/null -w '%{http_code}' http://127.0.0.1:3000/api/health || exit 1
 WORKDIR /app
